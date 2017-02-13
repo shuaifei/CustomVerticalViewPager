@@ -64,7 +64,11 @@ public class CustomVerticalViewPager extends ViewPager {
         super.setCurrentItem(item, smoothScroll);
 
     }
-
+	 /**
+	 * Set smooth scroller duration in millisecs
+	 *
+	 * @param duration
+	 */
     public void setSmoothScrollDuration(int duration) {
         mScrollDuration = duration;
     }
