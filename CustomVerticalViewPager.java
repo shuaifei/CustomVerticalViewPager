@@ -30,9 +30,7 @@ public class CustomVerticalViewPager extends ViewPager {
     }
 
     private void init() {
-        // The majority of the magic happens here
         setPageTransformer(true, new VerticalPageTransformer());
-        // The easiest way to get rid of the overscroll drawing that happens on the left and right
         setOverScrollMode(OVER_SCROLL_IF_CONTENT_SCROLLS);
         try {
             Field scroller = ViewPager.class.getDeclaredField("mScroller");
@@ -44,6 +42,7 @@ public class CustomVerticalViewPager extends ViewPager {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     private void postInitViewPager() {
@@ -59,16 +58,11 @@ public class CustomVerticalViewPager extends ViewPager {
         }
     }
 
-    @Override
-    public void setCurrentItem(int item, boolean smoothScroll) {
-        super.setCurrentItem(item, smoothScroll);
-
-    }
-	 /**
-	 * Set smooth scroller duration in millisecs
-	 *
-	 * @param duration
-	 */
+    /**
+     * Set smooth scroller duration in millisecs
+     *
+     * @param duration
+     */
     public void setSmoothScrollDuration(int duration) {
         mScrollDuration = duration;
     }
@@ -101,21 +95,17 @@ public class CustomVerticalViewPager extends ViewPager {
         public void transformPage(View view, float position) {
 
             if (position < -1) { // [-Infinity,-1)
-                // This page is way off-screen to the left.
-                view.setAlpha(0);
+                 view.setAlpha(0);
 
             } else if (position <= 1) { // [-1,1]
                 view.setAlpha(1);
 
-                // Counteract the default slide transition
-                view.setTranslationX(view.getWidth() * -position);
+                 view.setTranslationX(view.getWidth() * -position);
 
-                //set Y position to swipe in from top
-                float yPosition = position * view.getHeight();
+                 float yPosition = position * view.getHeight();
                 view.setTranslationY(yPosition);
 
-            } else { // (1,+Infinity]
-                // This page is way off-screen to the right.
+            } else {  
                 view.setAlpha(0);
             }
         }
